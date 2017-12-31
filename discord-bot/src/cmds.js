@@ -3,7 +3,8 @@ var ping = require('ping');
 
 var cmds = {
     ping: pingCmd,
-    fuckyou: fuckyouCmd
+    fuckyou: fuckYouCmd,
+    sah: sahCmd
 }
 
 function pingCmd(bundle, args) {
@@ -17,11 +18,22 @@ function pingCmd(bundle, args) {
     });
 }
 
-function fuckyouCmd(bundle, args) {
+function fuckYouCmd(bundle, args) {
     return new Promise((resolve, reject) => {
-        resolve('<@' + bundle.userId + '> fuck you too');
+        resolve(mention(bundle) + ' fuck you too');
         return;
     });
+}
+
+function sahCmd(bundle, args) {
+    return new Promise((resolve, reject) => {
+        resolve('sah ' + mention(bundle));
+        return;
+    });
+}
+
+function mention(bundle) {
+    return '<@' + bundle.userId + '>';
 }
 
 
