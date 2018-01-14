@@ -27,12 +27,24 @@ bot.on('message', function(user, userId, channelId, message, evt) {
 
         args = args.splice(1);
 
+        bot.se
         if (cmds[cmd] !== undefined) {
             cmds[cmd](bundle, args).then(msg => {
-                bot.sendMessage({
-                    to: channelId,
-                    message: msg
-                })
+
+                if (typeof msg === 'string')  {
+                    bot.sendMessage({
+                        to: channelId,
+                        message: msg
+                    });
+
+                    return;
+                }
+
+                // processing a large message object
+                msg.to = channelId; // set the channel id for convenience
+                bot.sendMessage(msg, (err) => {
+                    console.log(err);
+                });
             });
         }
     }
