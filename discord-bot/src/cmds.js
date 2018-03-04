@@ -94,7 +94,7 @@ function pingCmd(bundle, args) {
     var address = args[0];
     return ping.promise.probe(address).then((res) => {
         if (res.alive) {
-            return "Host `" + address + "` is alive at ip `" + res.numeric_host + "` with an average response time of `" + res.time + "sec`.";
+            return "Host `" + address + "` is alive at ip `" + res.numeric_host + "` with an average response time of `" + res.time + "ms`.";
         } else {
             return "Host `" + address + "` is not alive.";
         }
