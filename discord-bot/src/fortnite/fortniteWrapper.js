@@ -6,7 +6,14 @@ module.exports = class FortniteWrapper {
     }
 
     playerProfile(username, platform) {
+        platform = platform === undefined ? 'pc' : platform;
         return this.api.getProfile(username, platform).then(profile => {
+            if (profile.error !== undefined) {
+                return {
+                    error: "Sorry, no fortnite player named `" + username + "` found for platform `" + platform + "`."
+                };
+            }
+
             return mapProfile(profile);
         });
     }

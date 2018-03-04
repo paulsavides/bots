@@ -25,7 +25,6 @@ module.exports = class FortniteApi {
 
     getProfile(user, platform) {
         return new Promise((resolve, reject) => {
-            platform = platform === undefined ? 'pc' : platform;
             var options = this.buildOptions('profile/' + platform + '/' + user);
             
             if (this.rateLimited()) {

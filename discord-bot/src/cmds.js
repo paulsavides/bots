@@ -12,75 +12,82 @@ var cmds = {
 
 function fortniteCmd(bundle, args) {
     return new Promise((resolve, reject) => {
-        api.playerProfile(args[0], args[1]).then(profile => {
-            var message = {
-                message: '',
-                embed: {
-                    title: 'Fortnite player stats for ' + profile.username,
-                    color: 14889700,
-                    description: '',
-                    url: '',
-                    timestamp: new Date(),
-                    thumbnail: {
-                        url: ''
-                    },
-                    footer: {
-                        text: 'Stats provided by https://fortnitetracker.com'
-                    },
-                    fields: [
-                        {
-                            name: "Platform",
-                            value: profile.platform,
-                            inline: true
-                        },
-                        {
-                            name: "Username",
-                            value: profile.username,
-                            inline: true
-                        },
-                        {
-                            name: "Win Percentage",
-                            value: profile.overall.winPct,
-                            inline: true
-                        },
-                        {
-                            name: "K/D",
-                            value: profile.overall.killDeathPct,
-                            inline: true
-                        },
-                        {
-                            name: "Total Kills",
-                            value: profile.overall.totalKills,
-                            inline: true
-                        },
-                        {
-                            name: "Average Survival Time",
-                            value: profile.overall.avgSurvivalTime,
-                            inline: true
-                        },
-                        {
-                            name: "Total Score",
-                            value: profile.overall.totalScore,
-                            inline: true
-                        },
-                        {
-                            name: "Total Matches Played",
-                            value: profile.overall.totalMatchesPlayed,
-                            inline: true
-                        },
-                        {
-                            name: "Total Time Played",
-                            value: profile.overall.totalTimePlayed,
-                            inline: true
-                        }
-
-                    ]
+        api.playerProfile(args[0], args[1])
+            .then(profile => {
+                if (profile.error !== undefined) {
+                    resolve(profile.error);
+                    return;
                 }
-            };
 
-            resolve(message);
-        });
+                resolve(mapFortniteProfileToDiscordMessage(profile));
+            });
     });
+}
+
+function mapFortniteProfileToDiscordMessage(profile) {
+    return {
+        message: '',
+        embed: {
+            title: 'Fortnite player stats for ' + profile.username,
+            color: 14889700,
+            description: '',
+            url: '',
+            timestamp: new Date(),
+            thumbnail: {
+                url: ''
+            },
+            footer: {
+                text: 'Stats provided by https://fortnitetracker.com'
+            },
+            fields: [
+                {
+                    name: "Platform",
+                    value: profile.platform,
+                    inline: true
+                },
+                {
+                    name: "Username",
+                    value: profile.username,
+                    inline: true
+                },
+                {
+                    name: "Win Percentage",
+                    value: profile.overall.winPct,
+                    inline: true
+                },
+                {
+                    name: "K/D",
+                    value: profile.overall.killDeathPct,
+                    inline: true
+                },
+                {
+                    name: "Total Kills",
+                    value: profile.overall.totalKills,
+                    inline: true
+                },
+                {
+                    name: "Average Survival Time",
+                    value: profile.overall.avgSurvivalTime,
+                    inline: true
+                },
+                {
+                    name: "Total Score",
+                    value: profile.overall.totalScore,
+                    inline: true
+                },
+                {
+                    name: "Total Matches Played",
+                    value: profile.overall.totalMatchesPlayed,
+                    inline: true
+                },
+                {
+                    name: "Total Time Played",
+                    value: profile.overall.totalTimePlayed,
+                    inline: true
+                }
+            ]
+        }
+    };
 }
 
 function pingCmd(bundle, args) {
