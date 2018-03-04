@@ -12,7 +12,7 @@ var cmds = {
 
 function fortniteCmd(bundle, args) {
     return new Promise((resolve, reject) => {
-        api.playerProfile(args[0]).then(profile => {
+        api.playerProfile(args[0], args[1]).then(profile => {
             var message = {
                 message: '',
                 embed: {
@@ -56,6 +56,11 @@ function fortniteCmd(bundle, args) {
                         {
                             name: "Average Survival Time",
                             value: profile.overall.avgSurvivalTime,
+                            inline: true
+                        },
+                        {
+                            name: "Total Score",
+                            value: profile.overall.totalScore,
                             inline: true
                         },
                         {

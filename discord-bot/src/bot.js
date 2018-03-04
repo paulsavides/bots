@@ -30,7 +30,6 @@ bot.on('message', function(user, userId, channelId, message, evt) {
         bot.se
         if (cmds[cmd] !== undefined) {
             cmds[cmd](bundle, args).then(msg => {
-
                 if (typeof msg === 'string')  {
                     bot.sendMessage({
                         to: channelId,
@@ -40,10 +39,12 @@ bot.on('message', function(user, userId, channelId, message, evt) {
                     return;
                 }
 
-                // processing a large message object
+                // processing a message object
                 msg.to = channelId; // set the channel id for convenience
                 bot.sendMessage(msg, (err) => {
-                    console.log(err);
+                    if (err !== null) {
+                        console.log(err);
+                    }
                 });
             });
         }

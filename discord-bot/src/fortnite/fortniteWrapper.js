@@ -5,8 +5,8 @@ module.exports = class FortniteWrapper {
         this.api = new FortniteApi();
     }
 
-    playerProfile(username) {
-        return this.api.getProfile(username).then(profile => {
+    playerProfile(username, platform) {
+        return this.api.getProfile(username, platform).then(profile => {
             return mapProfile(profile);
         });
     }
@@ -23,10 +23,9 @@ function mapProfile(extended) {
             totalKills: lifetimeStats['Kills'],
             avgSurvivalTime: lifetimeStats['Avg Survival Time'],
             totalMatchesPlayed: lifetimeStats['Matches Played'],
-            totalTimePlayed: lifetimeStats['Time Played']
+            totalTimePlayed: lifetimeStats['Time Played'],
+            totalScore: lifetimeStats['Score']
         }
-
-    
     };
 }
 

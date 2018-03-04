@@ -23,10 +23,10 @@ module.exports = class FortniteApi {
         this.rateCurrentTime = Date.now();
     }
 
-
-    getProfile(user) {
+    getProfile(user, platform) {
         return new Promise((resolve, reject) => {
-            var options = this.buildOptions('profile/pc/' + user);
+            platform = platform === undefined ? 'pc' : platform;
+            var options = this.buildOptions('profile/' + platform + '/' + user);
             
             if (this.rateLimited()) {
                 reject('Rate limited wait a moment');
