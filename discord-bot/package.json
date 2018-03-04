@@ -2,9 +2,8 @@
   "name": "discord-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/bot.js",
     "debug": "node --inspect src/bot.js"
   },
@@ -13,5 +12,9 @@
   "dependencies": {
     "discord.io": "github:woor/discord.io#gateway_v6",
     "ping": "^0.2.2"
-  }
+  },
+  "bundledDependencies": [
+    "discord.io", "ping"
+  ],
+  "devDependencies": {}
 }
