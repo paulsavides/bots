@@ -1,6 +1,9 @@
 var Discord = require('discord.io');
+var Tokenizer = require('./tokenizer/tokenizer')
 var auth = require('./auth.json')
 var cmds = require('./cmds');
+
+const commandChar = '!';
 
 var bot = new Discord.Client({
     token: auth.token,
@@ -13,7 +16,7 @@ bot.on('ready', function (evt) {
 });
 
 bot.on('message', function(user, userId, channelId, message, evt) {
-    if (message.substring(0,1) == '!') {
+    if (message.substring(0,1) == commandChar) {
         var bundle = {
             user: user,
             userId: userId,
@@ -22,7 +25,8 @@ bot.on('message', function(user, userId, channelId, message, evt) {
             evt: evt
         };
 
-        var args = message.substring(1).split(' ');
+        
+        var args = new Tokenizer(message, commandChar).tokenize();
         var cmd = args[0];
 
         args = args.splice(1);

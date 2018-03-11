@@ -51,7 +51,7 @@ module.exports = class FortniteApi {
         return {
             host: 'api.fortnitetracker.com',
             port: 443,
-            path: '/v1/' + path,
+            path: '/v1/' + encodeURIComponent(path),
             method: 'GET',
             headers: {
                 'TRN-Api-Key': this.apiKey
